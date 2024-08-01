@@ -3,6 +3,7 @@ import { LoginserviceService } from './loginservice.service';
 import { LoginCreateReqDto } from '../Dto/req/login.create.req.dto';
 import { Repository } from 'typeorm';
 import { LoginEntity } from '../Entity/login.entity';
+import { LoginReadReqDto } from '../Dto/req/login.read.req.dto';
 
 @Controller('loginservice')
 export class LoginserviceController {
@@ -16,5 +17,9 @@ export class LoginserviceController {
   @Get('create')
   async create(@Query() query: LoginCreateReqDto) {
     return this.loginService.create(query);
+  }
+  @Get('read')
+  async read(@Query() query: LoginReadReqDto) {
+    return this.loginService.read(query);
   }
 }
