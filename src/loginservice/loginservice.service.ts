@@ -4,6 +4,8 @@ import { LoginEntity } from '../Entity/login.entity';
 import { Repository } from 'typeorm';
 import { LoginCreateReqDto } from '../Dto/req/login.create.req.dto';
 import { LoginReadReqDto } from '../Dto/req/login.read.req.dto';
+import { LoginUpdateReqDto } from '../Dto/req/login.update.req.dto';
+import { LoginUpdatedataReqDto } from "../Dto/req/login.updatedata.req.dto";
 
 @Injectable()
 export class LoginserviceService {
@@ -42,5 +44,11 @@ export class LoginserviceService {
     if (!data) throw new NotFoundException('옳지 않는 회원 정보입니다.');
     console.log(data);
     return data;
+  }
+
+  async update(query: LoginUpdateReqDto, updateData: LoginUpdatedataReqDto){
+    const data: LoginEntity = await this.loginEntity.update({
+      
+    })
   }
 }
