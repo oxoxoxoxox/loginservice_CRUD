@@ -10,8 +10,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     LoginserviceModule,
     TypeOrmModule.forRoot({
       type: 'mariadb',
-      host: '113.198.230.24',
-      port: 351,
+      host: 'localhost',
+      port: 3306,
       username: 'root',
       password: '1234',
       database: 'loginservice',

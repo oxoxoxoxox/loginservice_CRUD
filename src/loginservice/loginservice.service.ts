@@ -15,7 +15,7 @@ export class LoginserviceService {
     return this.loginEntity;
   }
 
-  async create(query: LoginCreateReqDto): Promise<boolean> {
+  async create(query: LoginCreateReqDto) {
     const data: LoginEntity = new LoginEntity();
     data.userName = query.userName;
     data.userID = query.userID;
@@ -23,6 +23,6 @@ export class LoginserviceService {
 
     const result: LoginEntity = await this.loginEntity.save(data);
     console.log(result);
-    return true;
+    return '축하합니다! 회원가입이 되었습니다.';
   }
 }
