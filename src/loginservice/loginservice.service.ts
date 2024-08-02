@@ -6,6 +6,7 @@ import { LoginCreateReqDto } from '../Dto/req/login.create.req.dto';
 import { LoginReadReqDto } from '../Dto/req/login.read.req.dto';
 import { LoginUpdateReqDto } from '../Dto/req/login.update.req.dto';
 import { LoginUpdatedataResDto } from '../Dto/res/login.updatedata.res.dto';
+import { LoginDeleteReqDto } from '../Dto/req/login.delete.req.dto';
 
 @Injectable()
 export class LoginserviceService {
@@ -65,5 +66,24 @@ export class LoginserviceService {
       },
     });
     return updatedata;
+  }
+
+  async delete(query: LoginDeleteReqDto) {
+    const data = await this.loginEntity.findOne({
+      select: {
+        userName: true,
+        userID: true,
+        userPW: true,
+      },
+      where: {
+        userName: query.userName,
+        userID: query.userID,
+        userPW: query.userPW,
+      },
+    });
+    if (!data)
+      throw new NotFoundException('저장되어 있지 않는 회원정보 입니다.');
+    await this.loginEntity.delete(data);
+    return '회원탈퇴 되었습니다.';
   }
 }
