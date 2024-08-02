@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { LoginEntity } from '../Entity/login.entity';
 import { LoginReadReqDto } from '../Dto/req/login.read.req.dto';
 import { LoginUpdateReqDto } from "../Dto/req/login.update.req.dto";
+import { LoginUpdatedataResDto } from "../Dto/res/login.updatedata.res.dto";
 
 @Controller('loginservice')
 export class LoginserviceController {
@@ -26,7 +27,7 @@ export class LoginserviceController {
   @Patch('update')
   async update(
     @Query() query: LoginUpdateReqDto,
-    @Body() updateData: LoginUpdateReqDto,
+    @Body() updateData: LoginUpdatedataResDto,
   ) {
     return this.loginService.update(query, updateData);
   }

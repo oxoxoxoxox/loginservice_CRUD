@@ -1,4 +1,4 @@
-export class LoginUpdatedataReqDto {
+export class LoginUpdatedataResDto {
   userID: string;
   userPW: string;
 }

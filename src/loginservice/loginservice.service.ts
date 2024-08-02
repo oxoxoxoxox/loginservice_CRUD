@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { LoginCreateReqDto } from '../Dto/req/login.create.req.dto';
 import { LoginReadReqDto } from '../Dto/req/login.read.req.dto';
 import { LoginUpdateReqDto } from '../Dto/req/login.update.req.dto';
-import { LoginUpdatedataReqDto } from "../Dto/req/login.updatedata.req.dto";
+import { LoginUpdatedataResDto } from '../Dto/res/login.updatedata.res.dto';
 
 @Injectable()
 export class LoginserviceService {
@@ -46,9 +46,24 @@ export class LoginserviceService {
     return data;
   }
 
-  async update(query: LoginUpdateReqDto, updateData: LoginUpdatedataReqDto){
-    const data: LoginEntity = await this.loginEntity.update({
-      
-    })
+  async update(query: LoginUpdateReqDto, updateData: LoginUpdatedataResDto) {
+    const data: LoginEntity = await this.loginEntity.findOne({
+      where: {
+        userName: query.userName,
+      },
+    });
+    if (!data) {
+      throw new NotFoundException('등록되지 않은 회원이름입니다.');
+    }
+    await this.loginEntity.update(
+      { userName: query.userName },
+      { userID: updateData.userID, userPW: updateData.userPW },
+    );
+    const updatedata: LoginUpdatedataResDto = await this.loginEntity.findOne({
+      where: {
+        userName: data.userName,
+      },
+    });
+    return updatedata;
   }
 }
